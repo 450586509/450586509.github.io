@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="日记," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -57,25 +57,16 @@
 
 
 
-<meta name="description" content="每天被自己帅到睡不着 
-玉树临风美少年，揽镜自顾夜不眠。
-青花瓷素胚勾勒出青花，笔锋浓转淡。瓶身描绘的牡丹，一如你初妆。
-hello Hexo ，this is my first personal blgger.">
+<meta name="description" content="摘要准确对句子进行建模是自然语言处理的基础。本论文介绍一种对句子语义建模的新方法——DCNN(Dynamic Convolutional Neural network). 该网络在池化层（pooling layer）时，使用动态k-max 方法。该网络处理不定长的输入句子，生成一个隐含句子语义的特征图（feature graph,）（我觉得应该是feature map，是一个矩阵）。该方法可以应用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="谢伟文">
-<meta property="og:url" content="http://yoursite.com/2016/04/03/谢伟文/index.html">
+<meta property="og:title" content="cnn进行句子建模">
+<meta property="og:url" content="http://yoursite.com/2016/04/07/cnn进行句子建模/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="每天被自己帅到睡不着 
-玉树临风美少年，揽镜自顾夜不眠。
-青花瓷素胚勾勒出青花，笔锋浓转淡。瓶身描绘的牡丹，一如你初妆。
-hello Hexo ，this is my first personal blgger.">
-<meta property="og:updated_time" content="2016-04-03T10:52:53.461Z">
+<meta property="og:description" content="摘要准确对句子进行建模是自然语言处理的基础。本论文介绍一种对句子语义建模的新方法——DCNN(Dynamic Convolutional Neural network). 该网络在池化层（pooling layer）时，使用动态k-max 方法。该网络处理不定长的输入句子，生成一个隐含句子语义的特征图（feature graph,）（我觉得应该是feature map，是一个矩阵）。该方法可以应用">
+<meta property="og:updated_time" content="2016-04-07T14:38:05.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="谢伟文">
-<meta name="twitter:description" content="每天被自己帅到睡不着 
-玉树临风美少年，揽镜自顾夜不眠。
-青花瓷素胚勾勒出青花，笔锋浓转淡。瓶身描绘的牡丹，一如你初妆。
-hello Hexo ，this is my first personal blgger.">
+<meta name="twitter:title" content="cnn进行句子建模">
+<meta name="twitter:description" content="摘要准确对句子进行建模是自然语言处理的基础。本论文介绍一种对句子语义建模的新方法——DCNN(Dynamic Convolutional Neural network). 该网络在池化层（pooling layer）时，使用动态k-max 方法。该网络处理不定长的输入句子，生成一个隐含句子语义的特征图（feature graph,）（我觉得应该是feature map，是一个矩阵）。该方法可以应用">
 
 
 
@@ -93,7 +84,7 @@ hello Hexo ，this is my first personal blgger.">
   };
 </script>
 
-  <title> 谢伟文 | Hexo </title>
+  <title> cnn进行句子建模 | Hexo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -213,7 +204,7 @@ hello Hexo ，this is my first personal blgger.">
             
             
               
-                谢伟文
+                cnn进行句子建模
               
             
           </h1>
@@ -225,8 +216,8 @@ hello Hexo ，this is my first personal blgger.">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-04-03T15:09:36+08:00" content="2016-04-03">
-              2016-04-03
+            <time itemprop="dateCreated" datetime="2016-04-07T21:48:17+08:00" content="2016-04-07">
+              2016-04-07
             </time>
           </span>
 
@@ -252,11 +243,17 @@ hello Hexo ，this is my first personal blgger.">
       
 
       
-        <p>每天被自己帅到睡不着 </p>
-<p>玉树临风美少年，揽镜自顾夜不眠。</p>
-<h2 id="青花瓷"><a href="#青花瓷" class="headerlink" title="青花瓷"></a>青花瓷</h2><p>素胚勾勒出青花，笔锋浓转淡。<br>瓶身描绘的牡丹，一如你初妆。</p>
-<p>hello Hexo ，this is my first personal blgger.</p>
-
+        <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>准确对句子进行建模是自然语言处理的基础。本论文介绍一种对句子语义建模的新方法——DCNN(Dynamic Convolutional Neural network). 该网络在池化层（pooling layer）时，使用动态k-max 方法。该网络处理不定长的输入句子，生成一个隐含句子语义的特征图（feature graph,）（我觉得应该是feature map，是一个矩阵）。该方法可以应用到任何语言。</p>
+<p> 对句子建模是为了分析和表示句子的语义，从而方便应用在分类，情感分析等自然语言处理方面，处于自然语言处理的核心位置。句子建模的核心包含一个特征函数（feature funtion），该特征函数决定了句子中的哪些特征应该被提取。</p>
+<p>在目前已有的句子建模方法中，神经网络是最主要的方法。包括RNN，LSTM等。神经网络建模的优点：</p>
+<pre><code>1. 通过神经网络输出的向量，包含了字和词组的上下文。
+2. 训练出来的结果，与某一特定任务相关。
+3. 训练出来的结果除了可以用来分类，还可以用来生产一个句子。（机器翻译）
+</code></pre><p>我们定义了卷积神经网络结构，并且应用它进行句子建模。网络的结构大致为：</p>
+<pre><code>1.网络可以输入长度不等的句子。
+2.一维的卷积层和k-max池化层交错放置。k-max池化层是 max池化层的一种推广。主要体现在两个方面：
+第一，k-max池化层从一个线性序列中，返回k个最大的值。第二，k的大小可以指定。
+</code></pre>
       
     </div>
 
@@ -268,28 +265,18 @@ hello Hexo ，this is my first personal blgger.">
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/日记/" rel="tag">#日记</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/02/hello-world/" rel="next" title="谢伟文">
-                <i class="fa fa-chevron-left"></i> 谢伟文
+              <a href="/2016/04/05/ARIMA算法/" rel="next" title="ARIMA算法">
+                <i class="fa fa-chevron-left"></i> ARIMA算法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/05/ARIMA算法/" rel="prev" title="ARIMA算法">
-                ARIMA算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -398,7 +385,7 @@ hello Hexo ，this is my first personal blgger.">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#青花瓷"><span class="nav-number">1.</span> <span class="nav-text">青花瓷</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li></ol></div>
             
           </div>
         </section>

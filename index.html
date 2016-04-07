@@ -143,7 +143,7 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -153,7 +153,7 @@
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -206,6 +206,193 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/07/cnn进行句子建模/" itemprop="url">
+                  cnn进行句子建模
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-04-07T21:48:17+08:00" content="2016-04-07">
+              2016-04-07
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>准确对句子进行建模是自然语言处理的基础。本论文介绍一种对句子语义建模的新方法——DCNN(Dynamic Convolutional Neural network). 该网络在池化层（pooling layer）时，使用动态k-max 方法。该网络处理不定长的输入句子，生成一个隐含句子语义的特征图（feature graph,）（我觉得应该是feature map，是一个矩阵）。该方法可以应用到任何语言。</p>
+<p> 对句子建模是为了分析和表示句子的语义，从而方便应用在分类，情感分析等自然语言处理方面，处于自然语言处理的核心位置。句子建模的核心包含一个特征函数（feature funtion），该特征函数决定了句子中的哪些特征应该被提取。</p>
+<p>在目前已有的句子建模方法中，神经网络是最主要的方法。包括RNN，LSTM等。神经网络建模的优点：</p>
+<pre><code>1. 通过神经网络输出的向量，包含了字和词组的上下文。
+2. 训练出来的结果，与某一特定任务相关。
+3. 训练出来的结果除了可以用来分类，还可以用来生产一个句子。（机器翻译）
+</code></pre><p>我们定义了卷积神经网络结构，并且应用它进行句子建模。网络的结构大致为：</p>
+<pre><code>1.网络可以输入长度不等的句子。
+2.一维的卷积层和k-max池化层交错放置。k-max池化层是 max池化层的一种推广。主要体现在两个方面：
+第一，k-max池化层从一个线性序列中，返回k个最大的值。第二，k的大小可以指定。
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/05/ARIMA算法/" itemprop="url">
+                  ARIMA算法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-04-05T14:54:46+08:00" content="2016-04-05">
+              2016-04-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###什么是ARIMA算法：<br>    全称是带季节项的自回归移动平均模型（Autoregressive Integrated Moving Average Model)<br>    是以某个单一对象随着时间的变化而观察到的数据序列为基础，根据该<br>    时间序列的过去值和现在值预测未来的值。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/03/谢伟文/" itemprop="url">
                   谢伟文
                 </a>
@@ -219,7 +406,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <span class="post-meta-item-text">Posted on</span>
             <time itemprop="dateCreated" datetime="2016-04-03T15:09:36+08:00" content="2016-04-03">
               2016-04-03
             </time>
@@ -311,7 +498,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <span class="post-meta-item-text">Posted on</span>
             <time itemprop="dateCreated" datetime="2016-04-02T15:12:41+08:00" content="2016-04-02">
               2016-04-02
             </time>
@@ -415,8 +602,8 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
-              <span class="site-state-item-name">Artikel</span>
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">posts</span>
             </a>
           </div>
 
@@ -425,8 +612,8 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">tags</span>
               </a>
             </div>
           
@@ -472,7 +659,7 @@
 </div>
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
