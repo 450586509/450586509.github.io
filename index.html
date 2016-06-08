@@ -260,9 +260,14 @@
 2.一维的卷积层和k-max池化层交错放置。k-max池化层是 max池化层的一种推广。主要体现在两个方面：
 第一，k-max池化层从一个线性序列中，返回k个最大的值。第二，k的大小可以指定。
 </code></pre><h2 id="本文的卷积神经网络的结构："><a href="#本文的卷积神经网络的结构：" class="headerlink" title="本文的卷积神经网络的结构："></a>本文的卷积神经网络的结构：</h2><p>在利用神经网络建模的过程中，卷积层和动态k-max池化层交替排列。中间层的特征图（feature map）大小随着输入句子长度变化而改变。下面详细描述各个部分。</p>
-<h3 id="宽卷积（Wide-Convolution）"><a href="#宽卷积（Wide-Convolution）" class="headerlink" title="宽卷积（Wide Convolution）"></a>宽卷积（Wide Convolution）</h3><pre><code>卷积核的大小为：dxm
-输入矩阵：$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
-</code></pre>
+<h3 id="宽卷积（Wide-Convolution）"><a href="#宽卷积（Wide-Convolution）" class="headerlink" title="宽卷积（Wide Convolution）"></a>宽卷积（Wide Convolution）</h3><p>卷积核的大小：\( m \in R ^{d \times m} \)</p>
+<p>输入句子的为s,有n个词: \( s= \{ w1,w2,w3,…,wn \} \)</p>
+<p>每个词是一个d维的向量，可以通过通过训练学习。</p>
+<p>卷积层是由卷积核与它上一层卷积得到，比如第二层是由输入层与卷积核进行卷积运算的结果,大小为 \( d \times (s+m-1) \).</p>
+<h2 id="k-max-池化"><a href="#k-max-池化" class="headerlink" title="k-max 池化"></a>k-max 池化</h2><pre><code>含义：给定k的大小，和一个有p个元素的序列或者向量，k-max 池化操作是从中选出k个最大值的元素，并且保持这些元素前后位置关系不变。
+意义：1.选出了k个最活跃的特征。2.保留了各个特征的相对位置，但是对具体位置信息不敏感。3.
+</code></pre><p>When \( a \ne 0 \), there are two solutions to \(ax^2 + bx + c = 0\) and they are:<br>$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$<br>$$ m \in R ^{d \times m}$$</p>
+
           
         
       
