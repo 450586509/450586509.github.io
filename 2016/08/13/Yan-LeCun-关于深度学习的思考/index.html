@@ -1,0 +1,593 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="Session with Yann LeCunWhat are some recent and potentially upcoming breakthroughs in deep learning?
+The most important one, in my opinion, is adversarial training (also called GAN for Generative Adve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yan LeCun 关于深度学习的思考">
+<meta property="og:url" content="http://yoursite.com/2016/08/13/Yan-LeCun-关于深度学习的思考/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Session with Yann LeCunWhat are some recent and potentially upcoming breakthroughs in deep learning?
+The most important one, in my opinion, is adversarial training (also called GAN for Generative Adve">
+<meta property="og:updated_time" content="2016-08-13T04:26:11.766Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yan LeCun 关于深度学习的思考">
+<meta name="twitter:description" content="Session with Yann LeCunWhat are some recent and potentially upcoming breakthroughs in deep learning?
+The most important one, in my opinion, is adversarial training (also called GAN for Generative Adve">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> Yan LeCun 关于深度学习的思考 | Hexo </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Kategorien
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            Über
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Yan LeCun 关于深度学习的思考
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-08-13T12:25:30+08:00" content="2016-08-13">
+              2016-08-13
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/13/Yan-LeCun-关于深度学习的思考/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/13/Yan-LeCun-关于深度学习的思考/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Session-with-Yann-LeCun"><a href="#Session-with-Yann-LeCun" class="headerlink" title="Session with Yann LeCun"></a><a href="https://www.quora.com/session/Yann-LeCun/1" target="_blank" rel="external">Session with Yann LeCun</a></h2><h2 id="What-are-some-recent-and-potentially-upcoming-breakthroughs-in-deep-learning"><a href="#What-are-some-recent-and-potentially-upcoming-breakthroughs-in-deep-learning" class="headerlink" title="What are some recent and potentially upcoming breakthroughs in deep learning?"></a>What are some recent and potentially upcoming breakthroughs in deep learning?</h2><blockquote>
+<p>The most important one, in my opinion, is adversarial training (also called GAN for Generative Adversarial Networks). &#x5BF9;&#x6297;&#x8BAD;&#x7EC3;</p>
+</blockquote>
+<h2 id="What-are-your-recommendations-for-self-studying-machine-learning"><a href="#What-are-your-recommendations-for-self-studying-machine-learning" class="headerlink" title="What are your recommendations for self-studying machine learning?"></a>What are your recommendations for self-studying machine learning?</h2><blockquote>
+<p>###&#x7F51;&#x4E0A;&#x8D44;&#x6599;&#x8BFE;&#x7A0B;&#x4E00;&#x5927;&#x5806;</p>
+</blockquote>
+<h2 id="What-are-the-likely-AI-advancements-in-the-next-5-to-10-years"><a href="#What-are-the-likely-AI-advancements-in-the-next-5-to-10-years" class="headerlink" title="What are the likely AI advancements in the next 5 to 10 years?"></a>What are the likely AI advancements in the next 5 to 10 years?</h2><blockquote>
+<ol>
+<li>deep learning combined with reasoning and planning.&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;&#x4E0E;&#x63A8;&#x7406;&#x548C;&#x8BA1;&#x5212;&#x7684;&#x7ED3;&#x5408;&#x3002;</li>
+<li>&#x6DF1;&#x5EA6;&#x5F3A;&#x5316;&#x5B66;&#x4E60;&#xFF08;deep model-based reinforcement learning&#xFF09;</li>
+<li>&#x901A;&#x8FC7;&#x8BB0;&#x5FC6;&#x7F51;&#x7EDC;&#x589E;&#x5F3A;&#x7684;RNN&#x3002;</li>
+<li>&#x57FA;&#x4E8E;&#x5BF9;&#x6297;&#x8BAD;&#x7EC3;&#x7684;&#x751F;&#x6210;&#x548C;&#x9884;&#x6D4B;&#x6A21;&#x578B;</li>
+<li>&#x53EF;&#x5FAE;&#x7F16;&#x7A0B;&#x3002;&#x628A;&#x7A0B;&#x5E8F;&#x89C6;&#x4E3A;&#x53EF;&#x5FAE;&#x7684;&#x56FE;&#x6A21;&#x578B;&#xFF0C;&#x5E76;&#x80FD;&#x901A;&#x8FC7;backprop&#x8FDB;&#x884C;&#x8BAD;&#x7EC3;&#x3002;</li>
+<li>&#x5C42;&#x6B21;&#x8BA1;&#x5212;&#x548C;&#x5C42;&#x6B21;&#x5F3A;&#x5316;&#x5B66;&#x4E60;&#xFF0C;&#x5C06;&#x4E00;&#x4E2A;&#x590D;&#x6742;&#x7684;&#x5B66;&#x4E60;&#x95EE;&#x9898;&#x5206;&#x89E3;&#x6210;&#x7B80;&#x5355;&#x7684;&#x4EFB;&#x52A1;&#x3002;</li>
+<li>&#x65E0;&#x76D1;&#x7763;&#x7684;&#x65B9;&#x6CD5;&#x5B66;&#x4E60;&#x9884;&#x6D4B;&#x6A21;&#x578B;&#x3002;<br>###&#x5982;&#x679C;&#x4EE5;&#x4E0A;&#x51E0;&#x4E2A;&#x65B9;&#x9762;&#x6709;&#x660E;&#x663E;&#x7684;&#x53D1;&#x5C55;&#xFF0C;&#x90A3;&#x4E48;&#x4F1A;&#x51FA;&#x73B0;&#x76F8;&#x5F53;&#x667A;&#x80FD;&#x7684;&#x7CFB;&#x7EDF;###</li>
+</ol>
+</blockquote>
+<h2 id="What-are-some-recent-and-potentially-upcoming-breakthroughs-in-unsupervised-learning-&#x65E0;&#x76D1;&#x7763;&#x7B97;&#x6CD5;&#x6700;&#x8FD1;&#x6700;&#x6709;&#x6F5C;&#x529B;&#x7684;&#x7A81;&#x7834;"><a href="#What-are-some-recent-and-potentially-upcoming-breakthroughs-in-unsupervised-learning-&#x65E0;&#x76D1;&#x7763;&#x7B97;&#x6CD5;&#x6700;&#x8FD1;&#x6700;&#x6709;&#x6F5C;&#x529B;&#x7684;&#x7A81;&#x7834;" class="headerlink" title="What are some recent and potentially upcoming breakthroughs in unsupervised learning?(&#x65E0;&#x76D1;&#x7763;&#x7B97;&#x6CD5;&#x6700;&#x8FD1;&#x6700;&#x6709;&#x6F5C;&#x529B;&#x7684;&#x7A81;&#x7834;)"></a>What are some recent and potentially upcoming breakthroughs in unsupervised learning?(&#x65E0;&#x76D1;&#x7763;&#x7B97;&#x6CD5;&#x6700;&#x8FD1;&#x6700;&#x6709;&#x6F5C;&#x529B;&#x7684;&#x7A81;&#x7834;)</h2><blockquote>
+<p>Adversarial  Training</p>
+</blockquote>
+<h2 id="What&#x2019;s-your-advice-for-undergraduate-student-who-aspires-to-be-a-research-scientist-in-deep-learning-or-related-field-one-day-&#x5BF9;&#x4E8E;&#x90A3;&#x4E9B;&#x60F3;&#x8981;&#x641E;&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;&#x7684;&#x5927;&#x5B66;&#x751F;&#xFF0C;&#x4F60;&#x6709;&#x4EC0;&#x4E48;&#x5EFA;&#x8BAE;&#xFF1F;"><a href="#What&#x2019;s-your-advice-for-undergraduate-student-who-aspires-to-be-a-research-scientist-in-deep-learning-or-related-field-one-day-&#x5BF9;&#x4E8E;&#x90A3;&#x4E9B;&#x60F3;&#x8981;&#x641E;&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;&#x7684;&#x5927;&#x5B66;&#x751F;&#xFF0C;&#x4F60;&#x6709;&#x4EC0;&#x4E48;&#x5EFA;&#x8BAE;&#xFF1F;" class="headerlink" title="What&#x2019;s your advice for undergraduate student who aspires to be a research scientist in deep learning or related field one day?(&#x5BF9;&#x4E8E;&#x90A3;&#x4E9B;&#x60F3;&#x8981;&#x641E;&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;&#x7684;&#x5927;&#x5B66;&#x751F;&#xFF0C;&#x4F60;&#x6709;&#x4EC0;&#x4E48;&#x5EFA;&#x8BAE;&#xFF1F;)"></a><a href="https://www.quora.com/What%E2%80%99s-your-advice-for-undergraduate-student-who-aspires-to-be-a-research-scientist-in-deep-learning-or-related-field-one-day" target="_blank" rel="external">What&#x2019;s your advice for undergraduate student who aspires to be a research scientist in deep learning or related field one day?(&#x5BF9;&#x4E8E;&#x90A3;&#x4E9B;&#x60F3;&#x8981;&#x641E;&#x6DF1;&#x5EA6;&#x5B66;&#x4E60;&#x7684;&#x5927;&#x5B66;&#x751F;&#xFF0C;&#x4F60;&#x6709;&#x4EC0;&#x4E48;&#x5EFA;&#x8BAE;&#xFF1F;)</a></h2><blockquote>
+<p>take all the continuous math and physics class you can possibly take. If you have the choice between &#x201C;iOS programming&#x201D; and &#x201C;quantum mechanics&#x201D;, take &#x201C;quantum mechanics&#x201D;. In any case, take Calc I, Calc II, Calc III, Linear Algebra, Probability and Statistics, and as many physics courses as you can. But make sure you learn to program.&#xFF08;&#x591A;&#x5B66;&#x6570;&#x5B66;&#x548C;&#x7269;&#x7406;&#xFF0C;&#x5E76;&#x4E14;&#x5B66;&#x597D;&#x7F16;&#x7A0B;&#xFF09;<br>&#x72EC;&#x7ACB;&#x601D;&#x8003;&#xFF0C;&#x9605;&#x8BFB;&#x6587;&#x732E;&#x9A8C;&#x8BC1;&#x81EA;&#x5DF1;&#x7684;&#x60F3;&#x6CD5;&#xFF0C;&#x627E;&#x5927;&#x725B;&#x5E26;&#x4F60;&#xFF08;&#x6559;&#x6388;&#xFF0C;&#x535A;&#x58EB;&#xFF09;&#xFF0C;&#x8BFB;&#x4E2A;&#x535A;&#x58EB;&#x3002;<br>&#x5982;&#x679C;&#x535A;&#x58EB;&#x6CA1;&#x6709;&#x7533;&#x8BF7;&#x6210;&#x529F;&#xFF0C;&#x51FA;&#x6765;&#x5DE5;&#x4F5C;&#xFF0C;&#x518D;&#x7533;&#x8BF7;&#x3002;</p>
+</blockquote>
+<h2 id="What-is-your-favorite-machine-learning-algorithm"><a href="#What-is-your-favorite-machine-learning-algorithm" class="headerlink" title="What is your favorite machine learning algorithm?"></a>What is your favorite machine learning algorithm?</h2><blockquote>
+<p>BP</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/21/pycaffe/" rel="next" title="pycaffe">
+                <i class="fa fa-chevron-left"></i> pycaffe
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/08/13/Yan-LeCun-关于深度学习的思考/"
+     data-title="Yan LeCun 关于深度学习的思考"
+     data-content=""
+     data-url="http://yoursite.com/2016/08/13/Yan-LeCun-关于深度学习的思考/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/13/Yan-LeCun-关于深度学习的思考/"
+           data-title="Yan LeCun 关于深度学习的思考" data-url="http://yoursite.com/2016/08/13/Yan-LeCun-关于深度学习的思考/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="bruceXie - 谢稳文" />
+          <p class="site-author-name" itemprop="name">bruceXie - 谢稳文</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">Artikel</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">Tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Session-with-Yann-LeCun"><span class="nav-number">1.</span> <span class="nav-text">Session with Yann LeCun</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-are-some-recent-and-potentially-upcoming-breakthroughs-in-deep-learning"><span class="nav-number">2.</span> <span class="nav-text">What are some recent and potentially upcoming breakthroughs in deep learning?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-are-your-recommendations-for-self-studying-machine-learning"><span class="nav-number">3.</span> <span class="nav-text">What are your recommendations for self-studying machine learning?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-are-the-likely-AI-advancements-in-the-next-5-to-10-years"><span class="nav-number">4.</span> <span class="nav-text">What are the likely AI advancements in the next 5 to 10 years?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-are-some-recent-and-potentially-upcoming-breakthroughs-in-unsupervised-learning-无监督算法最近最有潜力的突破"><span class="nav-number">5.</span> <span class="nav-text">What are some recent and potentially upcoming breakthroughs in unsupervised learning?(无监督算法最近最有潜力的突破)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What’s-your-advice-for-undergraduate-student-who-aspires-to-be-a-research-scientist-in-deep-learning-or-related-field-one-day-对于那些想要搞深度学习的大学生，你有什么建议？"><span class="nav-number">6.</span> <span class="nav-text">What’s your advice for undergraduate student who aspires to be a research scientist in deep learning or related field one day?(对于那些想要搞深度学习的大学生，你有什么建议？)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-your-favorite-machine-learning-algorithm"><span class="nav-number">7.</span> <span class="nav-text">What is your favorite machine learning algorithm?</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bruceXie - 谢稳文</span>
+</div>
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"brucexie"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
