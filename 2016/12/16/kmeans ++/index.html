@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="machine learning," />
 
 
 
@@ -84,15 +84,22 @@
 
 
 
-<meta name="description" content="NLP,deeplearning,machine learning,python,c++">
-<meta property="og:type" content="website">
-<meta property="og:title" content="禾急子">
-<meta property="og:url" content="http://www.brucexie.com/tags/CNN/index.html">
+<meta name="description" content="k-means++:the advantages of careful seeding
+###kmeans++&amp;#x7684;&amp;#x4F18;&amp;#x70B9;&amp;#xFF1A;&amp;#x76F8;&amp;#x5BF9;&amp;#x4E8E;kmeans&amp;#xFF0C;&amp;#x65E2;&amp;#x80FD;&amp;#x63D0;&amp;#x5347;&amp;#x51C6;&amp;#x786E;&amp;#x7387;&amp;#x4E5F;&amp;#x80FD;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kmeans++">
+<meta property="og:url" content="http://www.brucexie.com/2016/12/16/kmeans ++/index.html">
 <meta property="og:site_name" content="禾急子">
-<meta property="og:description" content="NLP,deeplearning,machine learning,python,c++">
+<meta property="og:description" content="k-means++:the advantages of careful seeding
+###kmeans++&amp;#x7684;&amp;#x4F18;&amp;#x70B9;&amp;#xFF1A;&amp;#x76F8;&amp;#x5BF9;&amp;#x4E8E;kmeans&amp;#xFF0C;&amp;#x65E2;&amp;#x80FD;&amp;#x63D0;&amp;#x5347;&amp;#x51C6;&amp;#x786E;&amp;#x7387;&amp;#x4E5F;&amp;#x80FD;&amp;#x">
+<meta property="og:image" content="http://static.zybuluo.com/BruceXie/yi8uo1ij4b348d7v92fv78sf/image_1b43eff851i40j09m87fvdnik1g.png">
+<meta property="og:image" content="http://static.zybuluo.com/BruceXie/kw2bcrrcuv8h1sp1ylsb7chm/image_1b43dlo5013b1nnf14g5di34b4m.png">
+<meta property="og:updated_time" content="2016-12-16T09:18:29.779Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="禾急子">
-<meta name="twitter:description" content="NLP,deeplearning,machine learning,python,c++">
+<meta name="twitter:title" content="kmeans++">
+<meta name="twitter:description" content="k-means++:the advantages of careful seeding
+###kmeans++&amp;#x7684;&amp;#x4F18;&amp;#x70B9;&amp;#xFF1A;&amp;#x76F8;&amp;#x5BF9;&amp;#x4E8E;kmeans&amp;#xFF0C;&amp;#x65E2;&amp;#x80FD;&amp;#x63D0;&amp;#x5347;&amp;#x51C6;&amp;#x786E;&amp;#x7387;&amp;#x4E5F;&amp;#x80FD;&amp;#x">
+<meta name="twitter:image" content="http://static.zybuluo.com/BruceXie/yi8uo1ij4b348d7v92fv78sf/image_1b43eff851i40j09m87fvdnik1g.png">
 
 
 
@@ -120,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://www.brucexie.com/tags/CNN/"/>
+  <link rel="canonical" href="http://www.brucexie.com/2016/12/16/kmeans ++/"/>
 
 
 
 
 
-  <title> 标签: CNN | 禾急子 </title>
+  <title> kmeans++ | 禾急子 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -147,7 +154,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -250,53 +257,196 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        CNN
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.brucexie.com/2016/12/16/kmeans ++/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="bruce">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="禾急子">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="禾急子" src="">
+    </span>
+  </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                kmeans++
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-16T17:17:30+08:00">
+                2016-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/machine-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">machine learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/12/16/kmeans ++/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/16/kmeans ++/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p><a href="http://ilpubs.stanford.edu:8090/778/1/2006-13.pdf" target="_blank" rel="external">k-means++:the advantages of careful seeding</a></p>
+<p>###kmeans++&#x7684;&#x4F18;&#x70B9;&#xFF1A;<br>&#x76F8;&#x5BF9;&#x4E8E;kmeans&#xFF0C;&#x65E2;&#x80FD;&#x63D0;&#x5347;&#x51C6;&#x786E;&#x7387;&#x4E5F;&#x80FD;&#x52A0;&#x5FEB;&#x901F;&#x5EA6;&#x3002;</p>
+<blockquote>
+<p>By augmenting k-means with a simple, randomized seeding technique, we obtain an algorithm that is <strong>O(log k)-competitive</strong> with the optimal clustering. Experiments show our augmentation <strong>improves both the speed and the accuracy of k-means</strong>, often quite dramatically.<br><a id="more"></a></p>
+<p>###kmeans&#x548C;kmenas++&#x4ECB;&#x7ECD;<br>$c:$&#x67D0;&#x4E00;&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;<br>$D(x):$&#x6837;&#x672C;&#x70B9;x&#x5230;&#x5DF2;&#x53D6;&#x4E2D;&#x5FC3;&#x70B9;&#x7684;&#x6700;&#x77ED;&#x8DDD;&#x79BB;&#x3002;<br>k-means&#x7B97;&#x6CD5;&#x5F88;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#xFF1A;<br><img src="http://static.zybuluo.com/BruceXie/yi8uo1ij4b348d7v92fv78sf/image_1b43eff851i40j09m87fvdnik1g.png" alt="image_1b43eff851i40j09m87fvdnik1g.png-80.1kB"><br>k-means++&#x7B97;&#x6CD5;&#xFF1A;<br><img src="http://static.zybuluo.com/BruceXie/kw2bcrrcuv8h1sp1ylsb7chm/image_1b43dlo5013b1nnf14g5di34b4m.png" alt="image_1b43dlo5013b1nnf14g5di34b4m.png-64.2kB"></p>
+</blockquote>
+<h3 id="kmeans&#x4E0E;kmeans-&#x7684;&#x533A;&#x522B;"><a href="#kmeans&#x4E0E;kmeans-&#x7684;&#x533A;&#x522B;" class="headerlink" title="kmeans&#x4E0E;kmeans++&#x7684;&#x533A;&#x522B;"></a>kmeans&#x4E0E;kmeans++&#x7684;&#x533A;&#x522B;</h3><p>kmeans&#x968F;&#x673A;&#x9009;&#x53D6;k&#x4E2A;&#x4E2D;&#x5FC3;&#x70B9;&#xFF0C;kmeans&#x4EE5;&#x4E00;&#x79CD;&#x66F4;&#x52A0;&#x5408;&#x7406;&#x7684;&#x7B56;&#x7565;&#x9009;&#x62E9;&#x3002;</p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/12/09/CNN情感分析/" itemprop="url">
-              
-                <span itemprop="name">CNN情感分析</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-12-09T21:33:00+08:00"
-              content="2016-12-09" >
-          12-09
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/09/CNN情感分析/" rel="next" title="CNN情感分析">
+                <i class="fa fa-chevron-left"></i> CNN情感分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
 
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/16/kmeans ++/"
+           data-title="kmeans++" data-url="http://www.brucexie.com/2016/12/16/kmeans ++/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -316,8 +466,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -390,6 +549,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#kmeans与kmeans-的区别"><span class="nav-number">1.</span> <span class="nav-text">kmeans与kmeans++的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
@@ -488,6 +663,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
