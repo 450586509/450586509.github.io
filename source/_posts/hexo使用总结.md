@@ -11,7 +11,7 @@ tags: [hexo, tools]
 第二部：安装hexo。参考官网安装教程。
 第三步：从github中的个人主页仓库clone到本地：https://github.com/450586509/450586509.github.io.git
 第四步：切换到hexo源码分支。运行hexo g & hexo s,检查命令是否正常工作。启动后，从浏览器中登录http://localhost:4000,查看博客是否正常显示。
-
+<!-- more -->
 
 #### 更新主页文章
 - 更新文章分为四步：
