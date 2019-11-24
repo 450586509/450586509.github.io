@@ -1,7 +1,8 @@
 ---
 title: xgboost
 date: 2019-05-02 17:10:53
-tags: machine_learning
+tags: machine learning
+categories: machine learning
 ---
 
 ### xgboost如何划分连续变量？
