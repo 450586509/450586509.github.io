@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+    
+    <entry>
+      <title><![CDATA[pun generation with surprise -- percy liang]]></title>
+      <url>%2F2019%2F11%2F24%2Fpun-generation-with-surprise%2F</url>
+      <content type="text"><![CDATA[问题描述介绍一种无监督方法生成音同或音近的双关语句子（pun sentence）的方案。相比于有监督方法，该可以可复训练语料不足的问题，并且更有创新型。经人工评估后表示，该方案成功生成双关语句子的概率有33%，超过基于神经网络的基准方案的3倍概率。 解决方案什么造就一个好的双关语句子？作者发现，当我们在阅读一个句子的某个词的时候，基于上文大家会这个词的可能性有个估计。对于一个双关词，从较短的上下文来看，大家可能较难想到（发生概率小）。但是，从更长的上下文来看，大家又觉得应该是这样（发生概率大）。基于此发现，作者提出了一个local-global surprisal 原则，双关词在local上下文更让人surprising(意外)，但是在global 上下文中却显得情理之中。 双关语例子文中举了一个例子：Yesterday I accidentally swallowed some food coloring. The doctor says I’m OK, but I feel like I’ve （） a little inside。大家认为括号中填died的可能性更大一些，此处对应的双关词是dyed。从近的上文来看，p(dyed| but I feel like I’ve a little )很小；但是从更长的山下问来看，p(dyed|Yesterday I … food coloring)的概率较大。 A Local-Global Surprisal Measure。本文提出了量化local-global surprisal原则的方法：$S(c)=-log(\frac{p(w^p|c)}{p(w^a|c)})$$S_{local}=S(x_{p-d:p-1},x_{p+1:p+d})$$S_{global}=S(x_{1:p-1},x_{p+1:n})$$S_{ratio} = \begin{cases} -1 &amp; S_{local}&lt;0 or S_{global}&lt;0\ S_{local}/S_{global} &amp; 其它 \end{cases}$符号含义: c: 上下文 $w^p$: 双关词 $w^a$: 替代此 p: $w^p$的位置下标 该指标可以用来评估一个句子是否为双关句，一个双关语句子的$S_{ratio}$越大，代表效果越好。 方案方案的输入数据： 语料：要来生成双关句 ($w^a,w^p$)：替代词和双关词。 local surprisal利用$w^a$从语料中检索一批候选句子。保留只有一个$w^a$的句子，并$w^a$的位置排序，越靠后越好。再把$w^p$代替$w^a$，这样会得到局部surprisal的效果。 global surprisal第一步用pun word (双关词)替代了相关词（alternative word）,这一步目是找到一个topic word，替换掉句子开头的一个词，起到预测pun word的作用。topic world 利用语言模型基于pun word生成。 Type consistent constraint目的是确保被删除的词和topic word具有相同的类型。基于WordNet path 相似性，判断两个词是否为相同类型。 例如，person和passenger是相同的类型，person和ship不是。被替换的词是句子中的第一个名词或者代词。 Improve grammaticality直接用topic word替换被替换的词，容易引起语法错误。本文应用一个seq2seq模型解决该问题。seq2seq是一个denoising autoencoders，把topic word周围的词删去，然后重构该句子。 创新亮点 提出了一种无监督生成双关句子的方案，并取得不错的效果。 Local-Global Surprisal 原则的发现和量化方法。 提升句子语法性的方法。 实验结果本文设计了两个实验： 验证local-grobal surprisal principle 假设的有效性。 比较双关句子生成模型和其它模型的效果。 总结展望 本文基于local-global surprisal 原则实现了一个双关句子生成模型。 验证了基于non-humorous文本训练的语言模型，可以得到一个检测双关句子的模型。 尽管我们的方法比其它模型要好，但是离人类生成的双关句子有很大差距。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[hexo使用总结]]></title>
+      <url>%2F2019%2F04%2F24%2Fhexo%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93%2F</url>
+      <content type="text"><![CDATA[hexo博客迁移原理和参考文章：https://www.jianshu.com/p/fceaf373d797第一步：安装node.js。第二部：安装hexo。参考官网安装教程。第三步：从github中的个人主页仓库clone到本地：https://github.com/450586509/450586509.github.io.git第四步：切换到hexo源码分支。运行hexo g &amp; hexo s,检查命令是否正常工作。启动后，从浏览器中登录http://localhost:4000,查看博客是否正常显示。 更新主页文章 更新文章分为四步： 创建文章：命令：hexo new “你的文章名称”。该命令会在你hexo项目的source/_post目录下，生成”你的文章名称”.md的markdown文件。 编辑文件。利用markdown工具，编辑source/_post/“你的文章名称”.md的文件 预览文章。命令：hexo generate 和 hexo server。先利用hexo generate生成文章，再利用hexo server命令启动本地服务器。在浏览器中输入本地博客地址，可以查看文章的效果。 部署发布文章。命令：hexo g -d。当文章编写完成之后，运行该命令，就会生成并发布文章到你的个人博客网站。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[kmeans++]]></title>
+      <url>%2F2016%2F12%2F16%2Fkmeans%20%2B%2B%2F</url>
+      <content type="text"><![CDATA[k-means++:the advantages of careful seeding kmeans++的优点：相对于kmeans，既能提升准确率也能加快速度。 By augmenting k-means with a simple, randomized seeding technique, we obtain an algorithm that is O(log k)-competitive with the optimal clustering. Experiments show our augmentation improves both the speed and the accuracy of k-means, often quite dramatically. kmeans和kmenas++介绍$c:$某一个中心点$D(x):$样本点x到已取中心点的最短距离。k-means算法很容易理解：k-means++算法： kmeans与kmeans++的区别kmeans随机选取k个中心点，kmeans以一种更加合理的策略选择。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[CNN情感分析]]></title>
+      <url>%2F2016%2F12%2F09%2FCNN%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%2F</url>
+      <content type="text"><![CDATA[前言最近一直学习如何利用卷积神经网络（CNN）进行情感分析，一下是我用keras实现Yoon Kim 论文的过程，趟过一个大坑，在此记录一下。 算法介绍该论文是将CNN引入文本分类的开山之作，论文提出了4种模型，模型简单，效果喜人。CNN的输入时二维或以上的张量（tensor），张量不准确的表述为二维或者以上的矩阵。若利用CNN对文本数据建模，需要将输入文本转为张量的形式，利用Word Embedding 可以将单个句子转为一个矩阵,每一行对应该词的词向量。如下图： ![image_1b3eq53cv7j410j51t1fc3v1ku0m.png-35.4kB][1] #### random模型 利用随机初始化的词向量构造句子矩阵，词向量的值作为模型的参数。[keras的实现代码](https://github.com/450586509/DLNLP/blob/master/src/notebooks/CNN/cnn_static_word.ipynb) #### static 模型 利用训练好的词向量构造句子矩阵，词向量不作为模型的参数。论文中使用的是google基于新闻语料训练的词向量[keras的实现代码](https://github.com/450586509/DLNLP/blob/master/src/notebooks/CNN/cnn_static_word.ipynb)。 #### non-static模型 利用训练好的词向量构造句子，词向量作为模型的参数。[keras的实现代码](https://github.com/450586509/DLNLP/blob/master/src/notebooks/CNN/cnn_static_word.ipynb)。 #### multi channel 模型 CNN的输入有两个通道，前面三种模型的输入都是num\_words * embedding\_dim的矩阵,该模型的输入为2 * num\_words * embedding\_dim 的张量。类似于图片RGB三个通道。 第一个通道（第一个矩阵）由训练好的词向量初始化，且这些词向量作为模型参数。第二个通道（第二个矩阵）由训练好的词向量促使化，词向量保持不变，不作为模型的参数。[keras的实现代码](https://github.com/450586509/DLNLP/blob/master/src/notebooks/CNN/cnn_static_word.ipynb)（可能与原论文有出入）。 收获 在利用keras的Embedding层做static模型时，我们会构建一个word到index的字典，记为word_index_dict,再通过训练好的词向量够着要给index到词向量的字典，记为index_embedding。再构造一个矩阵weights,使得weights[i] = index_embedding[i]即可。通过Embedding层的trainable设置该层的参数是否参与训练（也就是词向量是否当作参数训练） 在构建Embedding层权重的weights时，肯定会出现某些word没有出现在google的词向量中，这时合理的初始化方法，对收敛和最后的最优值有决定性的作用。这是做这个实验所遇到最大坑，我试过[-1,1]的均匀分布、正态分布和全0，一直无法达到作者的最优值（48%）。一定要按如下初始化，使得与训练好的词向量具有相似的变化范围,作者在原码中说的是，the unknown vectors have (approximately) same variance as pre-trained ones np.random.uniform(-0.25,0.25,300)]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[好好]]></title>
+      <url>%2F2016%2F12%2F07%2F%E5%A5%BD%E5%A5%BD%2F</url>
+      <content type="text"><![CDATA[今天听到这首五月天的新歌歌词好好，旋律好好 想把你写成一首歌想养一只猫 （主子的好，谁养谁知道）想要回到每个场景拨慢每只表（把那些好的坏的都擦掉） 我们在小孩和大人的转角盖一座城堡（城管来了）我们好好 好到疯掉像找回失散多年的双胞 生命再长不过 烟火落下了眼角世界再大不过 你我凝视的微笑在所有流失的风景与人群中 你对我最好一切好好 是否太好 没有人知道 你和我背着空空的书包逃出名为日常的监牢（背着厚厚的书包，怎么逃得掉）忘了要长大 忘了要变老忘了时间有脚 最安静的时刻 回忆 总是最喧嚣（最匆忙的时刻 回忆 总是被忘掉）最喧嚣的狂欢 寂寞 包围着孤岛还以为驯服想念能陪伴我 像一只家猫（主子岂能驯服 只好 自己举手投降）它就窝在 沙发一角 却不肯睡觉 你和我曾有满满的羽毛跳着名为青春的舞蹈不知道未来 不知道烦恼不知道那些日子 会是那么少 时间的电影 结局才知道原来大人已没有童谣最后的叮咛 最后的拥抱我们红着眼笑 我们都要把自己照顾好好到遗憾无法打扰好好的生活 好好的变老好好假装自己已经把你忘掉 :)]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[渗透测试--Penetration testing]]></title>
+      <url>%2F2016%2F11%2F30%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95---Penetration%20testing%2F</url>
+      <content type="text"><![CDATA[什么是渗透测试对获得攻击授权的系统进行安全攻击，旨在发现系统漏洞。渗透测试要获取授权，否则可能会有牢狱之灾 什么是漏洞（vulnerability）漏洞：能够对系统造成潜在攻击的地方。常见的漏洞包括：简单的密码（weak password）,缓存溢出（buffer overflows）,SQL注入。 什么是exploit？exploit: 指利用计算机系统的漏洞获取控制权的这一系列行为。 什么是payload?payload是一段代码，这段代码能控制被exploit的系统。打个比方：exploit把payload装入一个背包，当exploit攻入一个系统后，把背包放在系统。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[Bi-LSTM CRF 模型]]></title>
+      <url>%2F2016%2F11%2F27%2FBi-LSTM%20CRF%20%E6%A8%A1%E5%9E%8B%2F</url>
+      <content type="text"><![CDATA[主题最近看了一篇关于命名实体论文，后来有人把这篇论文中的Bi-LSTM + CRF模型用来做分词，并且据说取得非常好的效果，但是今天又有人说效果没有说的那么好。这个模型成功引起了我的注意，下面是阅读的一些收获吧。 Bi-LSTM+CRF模型Bi-LSTM模型在深度学习中很常用，网上有很多介绍。我倒是第一次见到它与CRF结合的情形。模型如下图 ![Bi-LSTM+CRF][1] CRF层在做什么？这里有篇非常好的CRF文章。本文模型中用的是linear-chain CRF linear-chain CRF的优点： 假设CRF进行序列标记，输入序列为$(x_1,x_2,…,x_n)$,CRF标记后的序列为$(y_1,y_2,…,y_n)$,CRF不仅能够捕获$x_i$对$y_i$的影响，也能捕获$y_{i-1}$对$y$的影响。chain-CRF假设如下，这个公式在论文中被用作序列打分函数：$P(y|x,\lambda) \propto \exp(\sum_j(\lambda_jt_j(y_{i-1}，y_i,x,i))+\sum_k(u_ks_k(y_i,x,i)))$$\tag{1}$ 论文中提到两个矩阵，分别为P和A。p的含义： P的形状是$n*k$,k是标签的数目，命名实体识别本质上是一个打标签的过程，$P_{i,j}$对应输入句子中第 $i$ 个词对第 $j$ 个标签的打分，（要点来了）P矩阵就是Bi-LSTM的输出矩阵。 A的含义： $A_{i,j}$代表标签i到标签j到转移概率，这在HMM模型中叫做状态转移矩阵。 打分函数S: 文中给出了一个打分函数，也就对于每一个预测序列$y$都有一个对应的分数。$score(X,y) = \sum^n_0A_{y_i,y_{i+1}}+\sum^n_1P_{i,y_i}$这个公式正好与(1)一样。 转为概率将打分函数的结果通过一个softmax操作，转为该序列是目标序列的概率： ![image_1b2idmh4p11siie95go8kt1ks913.png-5.5kB][2] 参数训练在训练过程中，可以通过cross-entropy损失函数，最大化正确序列的对数概率 ![image_1b2idqtau13842hp8aa134s71g1g.png-12.7kB][3] 总结一下CRF做了什么CRF层把Bi-LSTM的输出当做一个词对每个标签打分，再利用打分函数对每一个预测序列进行打分，分数越高则对应预测的概率越大，再通过一个softmax过程将分数转为概率。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[牛顿迭代法和随机梯度下降法的区别]]></title>
+      <url>%2F2016%2F11%2F26%2F%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%E5%92%8C%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+      <content type="text"><![CDATA[最本质的区别牛顿迭代法 利用迭代点 $x$ 邻域内的二阶泰勒展开式$y$去近似代替原目标函数f(x),再求$y$的极小值点$x_{new}$作为下一个迭代点 随机梯度下降法 利用迭代点 $x$ 邻域内的一阶泰勒展开式$y$去近似代替原目标函数f(x),再求$y$的极小值点$x_{new}$作为下一个迭代点 由于函数的二阶泰勒展开式比一阶更加准确所以牛顿迭代法能够更快收敛。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[矩阵求导公式]]></title>
+      <url>%2F2016%2F11%2F26%2F%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC%E5%85%AC%E5%BC%8F%2F</url>
+      <content type="text"><![CDATA[1.标量$y$对向量$\vec{X}$求导设$\vec{X}为$： ![image_1b2gfbd2r1qr13dnbr41e5uoldm.png-7.1kB][1] $\tag{1}$则，$\frac{\partial{y}} { \partial{\vec{X}}} = $ ![image_1b2gfimvl1ea91ula1aji1t2vs1313.png-14.7kB][2] 2.向量对标量求导假设$\vec{Y}$的元素都为一元函数，都以变量 $x$ 为自变量设$\vec{Y}为$： ![image_1b2gg43or1k9t1ts17rcj401pt49.png-7.3kB][3] $\tag{2}$ 则$\frac{\partial{ \vec{Y}}} { \partial{x}} = $ ![image_1b2gfr3kc1qb1gse6ppmok18gl1g.png-14.7kB][4] 3.向量对向量求导假设$\vec{Y}$的元素都为多元函数，都以变量 $\vec{X}$ 为自变量。$\vec{X}$ 和$\vec{Y}$分别为$(1),(2)$则 $\frac{\partial{ \vec{Y}}} { \partial{ \vec{X}}} = $ ![image_1b2gg0mc51bsp1asrjn91jajhud1t.png-34.5kB][5] 4.矩阵对标量求导![image_1b2ggfrvp1elpk3kv9n1re31p59m.png-25.4kB][6] 5.标量对矩阵求导标量可以理解为多元标量函数，矩阵为全部自变量。 ![image_1b2gghskoot3oqhd551m1o137o13.png-23.3kB][7]]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[Yan LeCun 关于深度学习的思考]]></title>
+      <url>%2F2016%2F08%2F13%2FYan-LeCun-%E5%85%B3%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%80%9D%E8%80%83%2F</url>
+      <content type="text"><![CDATA[Session with Yann LeCunWhat are some recent and potentially upcoming breakthroughs in deep learning? The most important one, in my opinion, is adversarial training (also called GAN for Generative Adversarial Networks). 对抗训练 What are your recommendations for self-studying machine learning? ###网上资料课程一大堆 What are the likely AI advancements in the next 5 to 10 years? deep learning combined with reasoning and planning.深度学习与推理和计划的结合。 深度强化学习（deep model-based reinforcement learning） 通过记忆网络增强的RNN。 基于对抗训练的生成和预测模型 可微编程。把程序视为可微的图模型，并能通过backprop进行训练。 层次计划和层次强化学习，将一个复杂的学习问题分解成简单的任务。 无监督的方法学习预测模型。###如果以上几个方面有明显的发展，那么会出现相当智能的系统### What are some recent and potentially upcoming breakthroughs in unsupervised learning?(无监督算法最近最有潜力的突破) Adversarial Training What’s your advice for undergraduate student who aspires to be a research scientist in deep learning or related field one day?(对于那些想要搞深度学习的大学生，你有什么建议？) take all the continuous math and physics class you can possibly take. If you have the choice between “iOS programming” and “quantum mechanics”, take “quantum mechanics”. In any case, take Calc I, Calc II, Calc III, Linear Algebra, Probability and Statistics, and as many physics courses as you can. But make sure you learn to program.（多学数学和物理，并且学好编程）独立思考，阅读文献验证自己的想法，找大牛带你（教授，博士），读个博士。如果博士没有申请成功，出来工作，再申请。 What is your favorite machine learning algorithm? BP]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[pycaffe]]></title>
+      <url>%2F2016%2F07%2F21%2Fpycaffe%2F</url>
+      <content type="text"><![CDATA[利用python加载已经训练好的caffe模型。非常简单。123456789// codeimport caffeprotoPath = &apos;G:/code/caffeDemo/lenet_train_test.prototxt&apos; weigths = &apos;G:/code/caffeDemo/_iter_10000.caffemodel&apos;net = caffe.Net(protoPath,weigths,caffe.TEST)#通过net可以查看每层的weights和所有的blobs.net.paramnet.blobs]]></content>
+    </entry>
+
+    
+  
+  
+</search>
