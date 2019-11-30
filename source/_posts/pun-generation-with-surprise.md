@@ -31,7 +31,7 @@ $S_{ratio} = \begin{cases} -1 & S_{local}<0 or S_{global}<0\\ S_{local}/S_{globa
 
 #### 方案
 总体流程如下：
-![image.png](https://demo.chevereto.com/images/2019/11/30/image.png)
+![](progress.jpg)
 方案的输入数据：
  1. 语料：要来生成双关句
  2. ($w^a,w^p$)：替代词和双关词。
