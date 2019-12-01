@@ -30,8 +30,9 @@ $S_{ratio} = \begin{cases} -1 & S_{local}<0 or S_{global}<0\\ S_{local}/S_{globa
 该指标可以用来评估一个句子是否为双关句，一个双关语句子的$S_{ratio}$越大，代表效果越好。
 
 #### 方案
+总体流程如下：
+![](progress.jpg)
 方案的输入数据：
-
  1. 语料：要来生成双关句
  2. ($w^a,w^p$)：替代词和双关词。
 
