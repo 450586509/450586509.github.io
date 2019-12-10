@@ -203,8 +203,8 @@ excerpt_description: true
 # Automatically Excerpt. Not recommand.
 # Please use <!-- more --> in the post to control excerpt accurately.
 auto_excerpt:
-  enable: false
-  length: 150
+  enable: true
+  length: 350
 
 # Post meta display settings
 post_meta:
@@ -259,10 +259,10 @@ mathjax:
 #baidu_analytics:
 
 # Duoshuo ShortName
-duoshuo_shortname: brucexie
+# duoshuo_shortname: brucexie
 
 # 多说热评文章 true 或者 false
-duoshuo_hotartical: true
+# duoshuo_hotartical: true
 
 # Disqus
 #disqus_shortname:
@@ -303,11 +303,20 @@ duoshuo_hotartical: true
 # Make duoshuo show UA
 # user_id must NOT be null when admin_enable is true!
 # you can visit http://dev.duoshuo.com get duoshuo user id.
-duoshuo_info:
-  ua_enable: true
-  admin_enable: false
-  user_id: 0
+#duoshuo_info:
+#  ua_enable: true
+#  admin_enable: false
+#  user_id: 0
   #admin_nickname: Author
+valine:
+  enable: true
+  appid: nQgpkp1u0jMygrCj7kQV8Bcv-gzGzoHsz
+  appkey: SUTuxUMbtYMzB0DxNGkTabVB
+  notify: false # mail notifier , https://github.com/xCss/Valine/wiki
+  verify: false # Verification code
+  placeholder: ヾﾉ≧∀≦)o来啊，快活啊! 
+  guest_info: nick,mail,link
+  pageSize: 10
 
 
 # Facebook SDK Support.
