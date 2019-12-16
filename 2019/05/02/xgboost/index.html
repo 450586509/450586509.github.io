@@ -1,0 +1,843 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="machine learning,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="xgboost如何划分连续变量？由于训练集中样本的数量是有限的，所以也可以当作离散。在选择分裂点事，先把连续特征的取值从小到大排列，得到$[v_1,v_2,v_3,…,v_k]$,则分裂点可以选取为$[\frac{v_1+v_2}{2},\frac{v_2+v_3}{2},… ]$。 xgboost如何处理缺失值？在训练阶段，把缺失样本分别放入左节点和右边节点，通过结构分数，进行最终选择。在测试阶">
+<meta name="keywords" content="machine learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xgboost">
+<meta property="og:url" content="http://www.brucexie.com/2019/05/02/xgboost/index.html">
+<meta property="og:site_name" content="禾急子">
+<meta property="og:description" content="xgboost如何划分连续变量？由于训练集中样本的数量是有限的，所以也可以当作离散。在选择分裂点事，先把连续特征的取值从小到大排列，得到$[v_1,v_2,v_3,…,v_k]$,则分裂点可以选取为$[\frac{v_1+v_2}{2},\frac{v_2+v_3}{2},… ]$。 xgboost如何处理缺失值？在训练阶段，把缺失样本分别放入左节点和右边节点，通过结构分数，进行最终选择。在测试阶">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-10T14:18:11.433Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="xgboost">
+<meta name="twitter:description" content="xgboost如何划分连续变量？由于训练集中样本的数量是有限的，所以也可以当作离散。在选择分裂点事，先把连续特征的取值从小到大排列，得到$[v_1,v_2,v_3,…,v_k]$,则分裂点可以选取为$[\frac{v_1+v_2}{2},\frac{v_2+v_3}{2},… ]$。 xgboost如何处理缺失值？在训练阶段，把缺失样本分别放入左节点和右边节点，通过结构分数，进行最终选择。在测试阶">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.brucexie.com/2019/05/02/xgboost/">
+
+
+
+
+
+  <title> xgboost | 禾急子 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">禾急子</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">为学应须毕生力，攀登贵在少年时</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.brucexie.com/2019/05/02/xgboost/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="bruce">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="禾急子">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="禾急子" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                xgboost
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-02T17:10:53+08:00">
+                2019-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/machine-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">machine learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="xgboost如何划分连续变量？"><a href="#xgboost如何划分连续变量？" class="headerlink" title="xgboost如何划分连续变量？"></a>xgboost如何划分连续变量？</h3><p>由于训练集中样本的数量是有限的，所以也可以当作离散。在选择分裂点事，先把连续特征的取值从小到大排列，得到$[v_1,v_2,v_3,…,v_k]$,则分裂点可以选取为$[\frac{v_1+v_2}{2},\frac{v_2+v_3}{2},… ]$。</p>
+<h3 id="xgboost如何处理缺失值？"><a href="#xgboost如何处理缺失值？" class="headerlink" title="xgboost如何处理缺失值？"></a>xgboost如何处理缺失值？</h3><p>在训练阶段，把缺失样本分别放入左节点和右边节点，通过结构分数，进行最终选择。<br>在测试阶段，默认放入右边。</p>
+<h3 id="xgboost为什么能够并行？"><a href="#xgboost为什么能够并行？" class="headerlink" title="xgboost为什么能够并行？"></a>xgboost为什么能够并行？</h3><p>在选择要分裂的节点、选择特征和选择要分隔属性值时，都可以进行并行。</p>
+<h3 id="回归树的工作原理？"><a href="#回归树的工作原理？" class="headerlink" title="回归树的工作原理？"></a>回归树的工作原理？</h3><p>CART用作分类时，使用基尼系数选择特征和切分点；当CART用作拟合时，使用均方差选择特征和切分点。</p>
+<h3 id="如何选择分裂特征和特征值？"><a href="#如何选择分裂特征和特征值？" class="headerlink" title="如何选择分裂特征和特征值？"></a>如何选择分裂特征和特征值？</h3><p>遍历每一个叶子节点中的属性和属性分裂点。</p>
+<h3 id="叶子结点的预测值如何选择？"><a href="#叶子结点的预测值如何选择？" class="headerlink" title="叶子结点的预测值如何选择？"></a>叶子结点的预测值如何选择？</h3><p>分裂后的树决定后，利用该公式计算：$w_j=\frac{G_j}{H_j+\lambda}, G_j=\sum_{i\in{I_j}}g_i,H_j=\sum_{i\in{I_j}}h_i$。$I_j$表示落入第j个叶子节点的样本集合，$H_j$也就是指把该叶子节点的$h_i$累加起来。</p>
+<h3 id="xgboost的求每棵树的复杂度公式时，为什么要上该叶子节点在的取值平方？"><a href="#xgboost的求每棵树的复杂度公式时，为什么要上该叶子节点在的取值平方？" class="headerlink" title="xgboost的求每棵树的复杂度公式时，为什么要上该叶子节点在的取值平方？"></a>xgboost的求每棵树的复杂度公式时，为什么要上该叶子节点在的取值平方？</h3><h3 id="xgboost数学推到？"><a href="#xgboost数学推到？" class="headerlink" title="xgboost数学推到？"></a>xgboost数学推到？</h3><ul>
+<li>数学推到的意义在于，得到分裂后形成树的<strong>打分公式</strong>和叶子节点的<strong>预测分</strong>。通过这个打分公式来判断每次分裂的好坏，类似ID3的熵增益，C4.5的熵增益率，cart的gini系数。</li>
+<li>首先，定义损失函数：$Obj(\theta) = \sum_{i=1}^nl(y_i,\hat{y})+\sum_{k=1}^K\Omega(f_k)$；</li>
+<li>再定义复杂度公式：$\Omega(f_k)={\gamma}T+\frac{1}{2}\sum_{j=1}^Kw_j^2$;</li>
+<li>再把损失函数Obj作泰勒展开，$f_k(x)当做{\Delta}x$,并提取合并一些常量，得到：$Obj(\theta) = \sum_{i=1}^n[g_if_t(x)+\frac{1}{2}h_if_t(x)^2]+{\gamma}T+\frac{1}{2}{\lambda}\sum_j^Tw_j^2$;</li>
+<li>再用叶子节点的值来表示Obj，得到$Obj(\theta) = \sum_{j=1}^T[G_jw_j+\frac{1}{2}(H_j+\lambda)w_j^2]+{\gamma}T$</li>
+<li>打分公式：$Obj^{\ast}=-\frac{1}{2}\sum_{j=1}^{T}\frac{G_j^2}{H_j+\lambda}+{\gamma}T$</li>
+<li>叶子节点预测分公式：$w_j=\frac{G_j}{H_j+\lambda}$</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/29/Deep-Q-Learning/" rel="next" title="Deep Q-Learning">
+                <i class="fa fa-chevron-left"></i> Deep Q-Learning
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/03/PCFG和CCG简介/" rel="prev" title="PCFG和CCG简介">
+                PCFG和CCG简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="bruce">
+          <p class="site-author-name" itemprop="name">bruce</p>
+          <p class="site-description motion-element" itemprop="description">NLP,deeplearning,machine learning,python,c++</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="ttps://weibo.com/u/6378262362" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/450586509" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost如何划分连续变量？"><span class="nav-number">1.</span> <span class="nav-text">xgboost如何划分连续变量？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost如何处理缺失值？"><span class="nav-number">2.</span> <span class="nav-text">xgboost如何处理缺失值？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost为什么能够并行？"><span class="nav-number">3.</span> <span class="nav-text">xgboost为什么能够并行？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回归树的工作原理？"><span class="nav-number">4.</span> <span class="nav-text">回归树的工作原理？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何选择分裂特征和特征值？"><span class="nav-number">5.</span> <span class="nav-text">如何选择分裂特征和特征值？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#叶子结点的预测值如何选择？"><span class="nav-number">6.</span> <span class="nav-text">叶子结点的预测值如何选择？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost的求每棵树的复杂度公式时，为什么要上该叶子节点在的取值平方？"><span class="nav-number">7.</span> <span class="nav-text">xgboost的求每棵树的复杂度公式时，为什么要上该叶子节点在的取值平方？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost数学推到？"><span class="nav-number">8.</span> <span class="nav-text">xgboost数学推到？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bruce</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
